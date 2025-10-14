@@ -1,4 +1,4 @@
-import { MonitorSettings } from "@/store/monitorStore";
+import { MonitorSettings } from "@/store/monitorAdjustments/monitorAdjustmentsStore";
 
 export interface A4Dimensions {
   width: number | undefined;

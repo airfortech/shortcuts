@@ -13,9 +13,11 @@ import { useMonitorAdjustmentsStore } from "@/store/monitorAdjustments/monitorAd
 export const Page = ({
   children,
   title,
+  orientation = "portrait",
 }: {
   children?: React.ReactNode;
   title?: string;
+  orientation?: "landscape" | "portrait";
 }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const { settings } = useMonitorAdjustmentsStore();
@@ -24,7 +26,7 @@ export const Page = ({
     if (contentRef.current) {
       const imageDataUrl = await capturePageAsImage(contentRef.current);
       if (imageDataUrl) {
-        await printImageFromDataUrl(imageDataUrl);
+        await printImageFromDataUrl(imageDataUrl, orientation);
       }
     }
   };
@@ -39,14 +41,19 @@ export const Page = ({
   };
 
   const dimensions = calculateA4Format(settings);
+  console.table(dimensions);
+  const width =
+    orientation === "landscape" ? dimensions.height : dimensions.width;
+  const height =
+    orientation === "landscape" ? dimensions.width : dimensions.height;
 
   return (
     <div className="border-1 border-foreground/20">
       <div
         className="relative w-[210mm] h-[297mm] p-[10mm] bg-background"
         style={{
-          width: dimensions.width,
-          height: dimensions.height,
+          width: width,
+          height: height,
           padding: dimensions.padding,
         }}
         ref={contentRef}

@@ -21,7 +21,8 @@ export const capturePageAsImage = async (
 };
 
 export const printImageFromDataUrl = async (
-  imageDataUrl: string
+  imageDataUrl: string,
+  orientation: "landscape" | "portrait"
 ): Promise<void> => {
   const printWindow = window.open("", "_blank");
   if (printWindow) {
@@ -49,7 +50,7 @@ export const printImageFromDataUrl = async (
             }
           }
           @page {
-            size: A4;
+            size: A4 ${orientation};
             margin: 0mm;
           }
           @page:first {
