@@ -4,12 +4,18 @@ export interface A4Dimensions {
   width: number | undefined;
   height: number | undefined;
   padding: number | undefined;
+  pxpmm: number | undefined;
 }
 
 export const calculateA4Format = (settings: MonitorSettings): A4Dimensions => {
   // Default values if settings are not available
   if (!settings.diagonal || !settings.monitorResolution) {
-    return { width: undefined, height: undefined, padding: undefined };
+    return {
+      width: undefined,
+      height: undefined,
+      padding: undefined,
+      pxpmm: undefined,
+    };
   }
 
   const diagonal = parseFloat(settings.diagonal);
@@ -37,6 +43,7 @@ export const calculateA4Format = (settings: MonitorSettings): A4Dimensions => {
   const width = Math.round(a4WidthCm * verticalPxpcm);
   const height = Math.round(a4HeightCm * verticalPxpcm);
   const padding = Math.round(a4PaddingCm * verticalPxpcm);
+  const pxpmm = verticalPxpcm / 10;
 
-  return { width, height, padding };
+  return { width, height, padding, pxpmm };
 };

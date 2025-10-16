@@ -41,7 +41,6 @@ export const Page = ({
   };
 
   const dimensions = calculateA4Format(settings);
-  console.table(dimensions);
   const width =
     orientation === "landscape" ? dimensions.height : dimensions.width;
   const height =
@@ -50,7 +49,7 @@ export const Page = ({
   return (
     <div className="border-1 border-foreground/20">
       <div
-        className="relative w-[210mm] h-[297mm] p-[10mm] bg-background"
+        className="relative w-[210mm] h-[297mm] p-[10mm] bg-white"
         style={{
           width: width,
           height: height,
@@ -60,10 +59,10 @@ export const Page = ({
       >
         {title && (
           <p
-            className="absolute top-0 right-0 flex items-center text-secondary-foregrounds text-muted-foreground"
+            className="absolute top-0 right-0 flex items-center text-gray-500"
             style={{ height: dimensions.padding, right: dimensions.padding }}
           >
-            <Grip className="mr-2 w-4 text-muted-foreground" />
+            <Grip className="mr-2 w-4" />
             {title}
           </p>
         )}
