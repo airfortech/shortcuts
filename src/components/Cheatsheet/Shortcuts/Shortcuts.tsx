@@ -1,6 +1,8 @@
+import { Kbd, KbdGroup } from "@/components/ui/kbd";
 import { cn } from "@/lib/utils";
 import { ShortcutsTable } from "@/types/Shortcuts";
 import React, { Fragment } from "react";
+import { Shortcut } from "./Shortcut";
 
 interface Props {
   columns?: number;
@@ -11,7 +13,9 @@ export const Shortcuts = ({ columns = 2, data }: Props) => {
   console.table(data[0].shortcuts);
   return (
     <div
-      className={"p-5 w-full h-full border-0 border-red-800 gap-5 text-whites"}
+      className={
+        "p-5 w-full h-full border-0 border-red-800 gap-5 tracking-wide"
+      }
       style={{
         columns,
       }}
@@ -19,7 +23,7 @@ export const Shortcuts = ({ columns = 2, data }: Props) => {
       {data.map((table, index) => (
         <div
           className={cn(
-            "break-inside-auto w-full",
+            "break-inside-auto w-full text-sm",
             index < data.length - 1 && "mb-4",
             table.textColor || "text-white"
           )}
@@ -51,19 +55,25 @@ export const Shortcuts = ({ columns = 2, data }: Props) => {
                   key={`${i}-col1`}
                   className={cn(
                     i % 2 === 1 && table.rowColor,
-                    "break-inside-avoid-column px-2 py-1 pr-8 font-light",
+                    "break-inside-avoid-columns px-2 py-[5px] pr-8 font-light",
                     "rounded-l-sm",
+                    "flex items-center",
                     i > table.shortcuts.length - 1 && "opacity-0"
                   )}
                 >
-                  {shortcut.shortcut}
+                  <Shortcut
+                    shortcut={shortcut.shortcut}
+                    color={table.rowColor}
+                    textColor={table.textColor}
+                  />
                 </div>
                 <div
                   key={`${i}-col2`}
                   className={cn(
                     i % 2 === 1 && table.rowColor,
-                    "break-inside-avoid-column font-light px-2 py-1",
+                    "break-inside-avoid-columns font-light px-2 py-[5px] pr-8",
                     "rounded-r-sm",
+                    "flex items-center",
                     i > table.shortcuts.length - 1 && "opacity-0"
                   )}
                 >

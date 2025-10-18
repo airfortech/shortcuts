@@ -7,11 +7,10 @@ const data: ShortcutsTable[] = [
   {
     header: "File Operations",
     headerColor: "bg-blue-600",
-    textHeaderColor: "text-black",
     rowColor: "bg-blue-500/20",
     // emptyRows: 2,
     shortcuts: [
-      { shortcut: "Ctrl + N", description: "New File" },
+      { shortcut: "ctrl + n", description: "New File" },
       { shortcut: "Ctrl + O", description: "Open File" },
       { shortcut: "Ctrl + S", description: "Save File" },
       { shortcut: "Ctrl + Shift + S", description: "Save As" },
