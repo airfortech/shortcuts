@@ -12,6 +12,7 @@ interface Props {
   backgroundColor?: `bg-${string}`;
   backBackgroundColor?: `bg-${string}`;
   borderColor?: `border-${string}`;
+  children?: React.ReactNode;
 }
 
 export const Cheatsheet = ({
@@ -23,6 +24,7 @@ export const Cheatsheet = ({
   backgroundColor,
   backBackgroundColor,
   borderColor = "border-primary",
+  children,
 }: Props) => {
   const { settings } = useMonitorAdjustmentsStore();
   const { pxpmm } = calculateA4Format(settings);
@@ -102,38 +104,44 @@ export const Cheatsheet = ({
       {cropMarks && <Cross position="top-right" />}
       {cropMarks && <Cross position="bottom-left" />}
       {cropMarks && <Cross position="bottom-right" />}
-      <div
-        className="relative"
-        style={{
-          height: _backHeight,
-        }}
-      >
+      {backHeight && (
         <div
-          className={cn("absolute top-0 w-full h-full", backBackgroundColor)}
+          className="relative"
           style={{
-            left: pxpmm ? -2 * pxpmm + "px" : "-2mm",
-            width: pxpmm ? `calc(100% + ${4 * pxpmm}px)` : "calc(100% + 4mm)",
-            top: pxpmm ? -2 * pxpmm + "px" : "-2mm",
-            height: pxpmm ? `calc(100% + ${2 * pxpmm}px)` : "calc(100% + 2mm)",
+            height: _backHeight,
           }}
-        ></div>
-        <div
-          className={cn(
-            "absolute w-full h-full",
-            border && "border border-b-0",
-            border && borderColor,
-            backBackgroundColor
-          )}
-        />
-      </div>
+        >
+          <div
+            className={cn("absolute top-0 w-full h-full", backBackgroundColor)}
+            style={{
+              left: pxpmm ? -2 * pxpmm + "px" : "-2mm",
+              width: pxpmm ? `calc(100% + ${4 * pxpmm}px)` : "calc(100% + 4mm)",
+              top: pxpmm ? -2 * pxpmm + "px" : "-2mm",
+              height: pxpmm
+                ? `calc(100% + ${2 * pxpmm}px)`
+                : "calc(100% + 2mm)",
+            }}
+          ></div>
+          <div
+            className={cn(
+              "absolute w-full h-full",
+              border && "border border-b-0",
+              border && borderColor,
+              backBackgroundColor
+            )}
+          />
+        </div>
+      )}
       <div className="relative" style={{ height: _height }}>
         <div
           className={cn("absolute top-0 w-full h-full", backgroundColor)}
           style={{
             left: pxpmm ? -2 * pxpmm + "px" : "-2mm",
             width: pxpmm ? `calc(100% + ${4 * pxpmm}px)` : "calc(100% + 4mm)",
-            top: 0,
-            height: pxpmm ? `calc(100% + ${2 * pxpmm}px)` : "calc(100% + 2mm)",
+            top: !backHeight ? (pxpmm ? -2 * pxpmm + "px" : "-2mm") : 0,
+            height: pxpmm
+              ? `calc(100% + ${(backHeight ? 2 : 4) * pxpmm}px)`
+              : `calc(100% + ${backHeight ? 2 : 4}mm)`,
           }}
         ></div>
         <div
@@ -144,7 +152,7 @@ export const Cheatsheet = ({
             backgroundColor
           )}
         >
-          Cheatsheet
+          {children || null}
         </div>
       </div>
     </div>
